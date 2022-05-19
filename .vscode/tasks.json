@@ -1,0 +1,38 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "flutter: flutter build web",
+			"type": "flutter",
+			"command": "flutter",
+			"args": [
+				"build",
+				"web",
+				"--web-renderer=canvaskit"
+			],
+			"group": "build"
+		},
+		{
+			"label": "firebase deploy",
+			"type": "shell",
+			"command": "firebase",
+			"args": [
+				"deploy"
+			],
+			"group": "build"
+		},
+		{
+			"label": "build and host",
+			"dependsOrder": "sequence",
+			"type": "shell",
+			"command": "echo Deploy to firebase ",
+			"dependsOn": [
+				"flutter: flutter build web",
+				"firebase deploy"
+			],
+			"problemMatcher": [
+				"$tsc"
+			]
+		}
+	]
+}
