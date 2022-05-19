@@ -12,19 +12,7 @@ class loginController extends GetxController {
   bool isStudent = false;
   String id = "1";
 
-  Future<String?> authUser(LoginData data) async {
-    var password = await Hasura.getPasswordMyLogin(data.name, data.password);
-
-    if (password) {
-      id = await Hasura.getManagerId(data.name);
-      GetStorage().write("id", id);
-      _registry = true;
-      return Future.delayed(_loginTime).then((_) {
-        return null;
-      });
-    }
-    return "Пароль не верен";
-  }
+  
 
   Future<String?> recoverPassword(String name) {
     return Future.delayed(_loginTime).then((_) {
