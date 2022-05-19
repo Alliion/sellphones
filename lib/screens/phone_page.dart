@@ -46,7 +46,34 @@ class PhonePage extends StatelessWidget {
                           Container(
                             width: size.width / 2 - defaultPadding * 2,
                             child: Column(
-                              
+                              children: [
+                                techText("Создан",
+                                    "${snapshot.data!.data!.smartphones![0].createDate!}"),
+                                Divider(),
+                                techText("Процессор",
+                                    "${snapshot.data!.data!.smartphones![0].processor!}"),
+                                Divider(),
+                                techText("Батарея",
+                                    "${snapshot.data!.data!.smartphones![0].battery!}"),
+                                Divider(),
+                                techText("Экран",
+                                    "${snapshot.data!.data!.smartphones![0].screen}"),
+                                Divider(),
+                                techText("Основная камера",
+                                    "${snapshot.data!.data!.smartphones![0].mainCamera!}"),
+                                Divider(),
+                                techText("Фронтальная камера",
+                                    "${snapshot.data!.data!.smartphones![0].frontCamera!}"),
+                                Divider(),
+                                techText("Код устройства",
+                                    "${snapshot.data!.data!.smartphones![0].id!}"),
+                                Divider(),
+                                techText("Цена",
+                                    "\$${snapshot.data!.data!.smartphones![0].price!}"),
+                                Divider(),
+                                SizedBox(
+                                  height: defaultPadding,
+                                ),
                                 SizedBox(
                                   width: size.width / 2 - defaultPadding * 2,
                                   child: ElevatedButton(
