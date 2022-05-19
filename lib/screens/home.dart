@@ -36,7 +36,84 @@ class _HomePageState extends State<HomePage> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.start,
+                    runSpacing: defaultPadding,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            Get.toNamed("/admin");
+                          },
+                          child: Text('В админку')),
+                      SizedBox(
+                        width: defaultPadding,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            print("You! pressed on this button!");
+                            setState(() {
+                              whatDo = Hasura.getPhones(queryFilter);
+                              dropdownValue = "Все";
+                            });
+                          },
+                          child: Text('Сбросить фильтры')),
+                      SizedBox(
+                        width: defaultPadding,
+                      ),
+                      Row(
+                        children: [
+                          Text("Фирма: "),
+                          DropdownButton<String>(
+                            value: dropdownValue,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            underline: Container(
+                              height: 2,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                dropdownValue = newValue!;
+                                if (newValue != 'Все') {
+                                  queryFilter =
+                                      'where: {firm: {_eq: "$newValue"}}';
+                                } else {
+                                  queryFilter = '';
+                                }
 
+                                whatDo = Hasura.getPhones(queryFilter);
+                              });
+                            },
+                            items: <String>['Все', 'Apple', 'Oneplus', 'Xiaomi']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ],
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              whatDo = Hasura.getPhonesPriceAsc(queryFilter);
+                              needReload++;
+                              print("need sord");
+                            });
+                          },
+                          child: Text('Сортировка по цене')),
+                      SizedBox(
+                        width: defaultPadding,
+                      ),
+                      ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              whatDo = Hasura.getPhonesBatteyDesc(queryFilter);
+                            });
+                          },
+                          child: Text('Сортировка по аккумуляторам')),
+                    ],
+                  ),
                   SizedBox(height: defaultPadding),
                   FutureBuilder<Phones>(
                       future: whatDo,
