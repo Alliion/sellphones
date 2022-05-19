@@ -71,22 +71,7 @@ query MyQuery {
     }
   }
 
-  static Future<Phones> getPhonesPriceAsc(String filter) async {
-    String query = """
-query MyQuery {
-  smartphones(order_by: {price: asc} $filter) {
-    battery
-    create_date
-    front_camera
-    image
-    main_camera
-    name
-    processor
-    screen
-    id
-    price
-  }
-}
+  
       """;
     try {
       dynamic r = await _hasuraConnect.query(query);
